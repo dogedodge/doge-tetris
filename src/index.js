@@ -1,10 +1,7 @@
 import doge_png from '../assets/doge.png';
 import * as doge from './doge';
-// import { create } from './doge/create';
-// import { Stage } from './doge/Stage';
 
-console.log('welcome! hello');
-var gameStage = document.querySelector('#gameStage');
+var gameCanvas = document.querySelector('#gameStage');
 // var stageCtx = gameStage.getContext('2d');
 // stageCtx.rect(0, 0, 100, 100);
 // stageCtx.stroke();
@@ -14,14 +11,21 @@ var gameStage = document.querySelector('#gameStage');
 // }
 // image.src = doge_png;
 
-var stage = doge.Stage(gameStage); //doge.createObj(doge.Stage);
+// var stage = doge.Stage(gameStage); //doge.createObj(doge.Stage);
 // doge.createObj(doge.Drawable).draw(stageCtx);
-var graphic = doge.Graphic(function(ctx){
-    ctx.rect(100, 100, 100, 100);
+var graphic = doge.Graphic(function (ctx) {
+    ctx.beginPath();
+    ctx.rect(0, 0, 100, 100);
     ctx.stroke();
+    ctx.beginPath();
+    ctx.rect(0, 150, 100, 100);
+    ctx.fill();
 });
 
-graphic.x = 100;
-
+var stage = doge.run(gameCanvas);
 stage.add(graphic);
-stage.draw();
+
+doge.carry(function () {
+    graphic.x = (graphic.x + 1) % 300;
+    // console.log(graphic.x);
+});

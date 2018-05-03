@@ -16,7 +16,9 @@ export function Graphic(drawGraph) {
             ctx.save();
             ctx.translate(this.stageX, this.stageY);
             this.drawGraph(ctx);
+            // ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.restore();
+
         },
         drawGraph: drawGraph
     });

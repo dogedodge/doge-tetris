@@ -20,6 +20,7 @@ export function Drawable() {
         stageY: 0,
         draw: function (ctx) {
             if (!this.parent) {
+                // only stage has no parent
                 this.stageX = 0;
                 this.stageY = 0;
             } else {
