@@ -17,15 +17,17 @@ var graphic = doge.Graphic(function (ctx) {
     ctx.beginPath();
     ctx.rect(0, 0, 100, 100);
     ctx.stroke();
-    ctx.beginPath();
-    ctx.rect(0, 150, 100, 100);
-    ctx.fill();
 });
 
 var stage = doge.run(gameCanvas);
 stage.add(graphic);
 
+graphic.x = 200;
+graphic.y = 200;
+graphic.anchorX = 50;
+
 doge.carry(function () {
-    graphic.x = (graphic.x + 1) % 300;
+    // graphic.x = (graphic.x + 1) % 300;
+    graphic.rotation += 1;
     // console.log(graphic.x);
 });
