@@ -42,9 +42,9 @@ img.y = 300;
 // console.log(img);
 stage.add(img);
 
+stage.add(DrawableImage(doge_png));
+
 doge.carry(function () {
-    // graphic.x = (graphic.x + 1) % 300;
     graphic.rotation += 1;
     img.rotation += 1;
-    // console.log(graphic.x);
 });

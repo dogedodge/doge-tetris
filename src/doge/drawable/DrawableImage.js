@@ -1,4 +1,4 @@
-import { Drawable } from ".";
+import { Drawable } from "./Drawable";
 import { duang } from "../duang";
 import { stomach } from "../stomach";
 
