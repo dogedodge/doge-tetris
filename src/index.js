@@ -21,10 +21,17 @@ var graphic = doge.Graphic(function (ctx) {
 
 var stage = doge.run(gameCanvas);
 stage.add(graphic);
+stage.add(doge.Graphic(function(ctx){
+    ctx.beginPath();
+    ctx.rect(0, 0, 200, 200);
+    ctx.stroke();
+}));
 
 graphic.x = 200;
 graphic.y = 200;
 graphic.anchorX = 50;
+graphic.anchorY = 50;
+graphic.scale(2);
 
 doge.carry(function () {
     // graphic.x = (graphic.x + 1) % 300;

@@ -9,7 +9,8 @@ export function Drawable() {
         rotation: 0,
         anchorX: 0,
         anchorY: 0,
-
+        scaleX: 1,
+        scaleY: 1,
         /** @param {CanvasRenderingContext2D} ctx */
         draw: function (ctx) {
             if (!this.parent) {
@@ -26,9 +27,28 @@ export function Drawable() {
             if (this.rotation % 360 !== 0) {
                 ctx.rotate(this.rotation * Math.PI / 180);
             }
-            ctx.translate(-this.anchorX, -this.anchorY);
+            ctx.translate(-this.anchorX * this.scaleX, -this.anchorY * this.scaleY);
+            ctx.scale(this.scaleX, this.scaleY);
+
             this.onDraw(ctx);
+
             ctx.restore();
+        },
+        /**
+         * @param {number} scaleX
+         * @param {number} [scaleY]
+         */
+        scale: function (scaleX, scaleY) {
+            if (scaleX === void 0) {
+                this.scaleX = 1;
+            } else {
+                this.scaleX = scaleX;
+            }
+            if (scaleY === void 0) {
+                this.scaleY = this.scaleX;
+            } else {
+                this.scaleY = scaleY
+            }
         },
 
         /**
