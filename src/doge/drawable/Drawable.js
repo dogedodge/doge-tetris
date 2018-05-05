@@ -1,5 +1,8 @@
 export function Drawable() {
-    return {
+    var _width = 0;
+    var _height = 0;
+
+    var _this = {
         /** @type {{stageX:number, stageY:}} */
         parent: null,
         x: 0,
@@ -11,6 +14,8 @@ export function Drawable() {
         anchorY: 0,
         scaleX: 1,
         scaleY: 1,
+        width: 0,
+        height: 0,
         /** @param {CanvasRenderingContext2D} ctx */
         draw: function (ctx) {
             if (!this.parent) {
@@ -59,4 +64,24 @@ export function Drawable() {
 
         }
     }
+
+    Object.defineProperty(_this, 'width', {
+        get: function () {
+            return _width * this.scaleX;
+        },
+        set: function (w) {
+            _width = w;
+        }
+    });
+
+    Object.defineProperty(_this, 'height', {
+        get: function () {
+            return _height * this.scaleY;
+        },
+        set: function (h) {
+            _height = h;
+        }
+    });
+
+    return _this;
 }

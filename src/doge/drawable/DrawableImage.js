@@ -24,8 +24,10 @@ export function DrawableImage(src) {
                 this.promise = stomach.feed(src);
                 var that = this;
                 this.promise.then(function (img) {
+                    that.width = img.width;
+                    that.height = img.height;
                     that.image = img;
-                    _super.draw.call(this, ctx);
+                    _super.draw.call(that, ctx);
                 });
             }
         },
