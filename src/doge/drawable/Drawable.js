@@ -1,6 +1,11 @@
-export function Drawable() {
-    var _width = 0;
-    var _height = 0;
+/**
+ * 
+ * @param {number} [width] 
+ * @param {number} [height] 
+ */
+export function Drawable(width, height) {
+    // var _width = width;
+    // var _height = height;
 
     var _this = {
         /** @type {{stageX:number, stageY:}} */
@@ -14,6 +19,10 @@ export function Drawable() {
         anchorY: 0,
         scaleX: 1,
         scaleY: 1,
+        /** width without scale */
+        _width: width,
+        /** height without scale */
+        _height: height,
         width: 0,
         height: 0,
         /** @param {CanvasRenderingContext2D} ctx */
@@ -67,19 +76,27 @@ export function Drawable() {
 
     Object.defineProperty(_this, 'width', {
         get: function () {
-            return _width * this.scaleX;
+            if(this._width === void 0){
+                return void 0;
+            }else{
+                return this._width * this.scaleX;
+            }
         },
         set: function (w) {
-            _width = w;
+            this._width = w;
         }
     });
 
     Object.defineProperty(_this, 'height', {
         get: function () {
-            return _height * this.scaleY;
+            if(this._height === void 0){
+                return void 0;
+            }else{
+                return this._height * this.scaleY;
+            }
         },
         set: function (h) {
-            _height = h;
+            this._height = h;
         }
     });
 

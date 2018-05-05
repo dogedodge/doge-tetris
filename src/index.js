@@ -34,7 +34,7 @@ graphic.anchorX = 50;
 graphic.anchorY = 50;
 graphic.scale(2);
 
-var img = DrawableImage(doge_png);
+var img = DrawableImage(doge_png, 200, 100);
 console.log(img.width);
 img.scale(2);
 img.x = 200;
@@ -46,6 +46,5 @@ doge.carry(function () {
     // graphic.x = (graphic.x + 1) % 300;
     graphic.rotation += 1;
     img.rotation += 1;
-    console.log(img);
     // console.log(graphic.x);
 });
