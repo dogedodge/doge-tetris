@@ -12,7 +12,7 @@ export function Stage(canvas) {
             _super.draw(ctx);
         },
         clear: function () {
-            ctx.clearRect(0, 0, canvas.width, canvas.width);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     });
 }

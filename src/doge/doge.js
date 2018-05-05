@@ -1,7 +1,9 @@
 import { tickerManager } from "./timer";
 import { Stage } from "./drawable";
+import { stomach } from "./stomach";
 
 /**
+ * doge run on a canvas
  * @param {HTMLCanvasElement} canvas 
  */
 export function run(canvas) {
@@ -24,7 +26,7 @@ export function run(canvas) {
  * @typedef {{tick:tickFun}} Ticker
  */
 /**
- * 
+ * doge can carry a ticker
  * @param {tickFun|Ticker} ticker 
  */
 export function carry(ticker) {
@@ -37,4 +39,12 @@ export function carry(ticker) {
     }else{
         throw 'Doge only carry tickers';
     }
+}
+
+/**
+ * feed the doge with images
+ * @param {string} src 
+ */
+export function feed(src){
+    return stomach.feed(src);
 }

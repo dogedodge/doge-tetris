@@ -1,5 +1,6 @@
 import doge_png from '../assets/doge.png';
 import * as doge from './doge';
+import { DrawableImage } from './doge';
 
 var gameCanvas = document.querySelector('#gameStage');
 // var stageCtx = gameStage.getContext('2d');
@@ -23,7 +24,7 @@ var stage = doge.run(gameCanvas);
 stage.add(graphic);
 stage.add(doge.Graphic(function(ctx){
     ctx.beginPath();
-    ctx.rect(0, 0, 200, 200);
+    ctx.rect(0, 0, gameCanvas.width, gameCanvas.height);
     ctx.stroke();
 }));
 
@@ -33,8 +34,15 @@ graphic.anchorX = 50;
 graphic.anchorY = 50;
 graphic.scale(2);
 
+var img = DrawableImage(doge_png);
+img.x = 200;
+img.y = 300;
+// console.log(img);
+stage.add(img);
+
 doge.carry(function () {
     // graphic.x = (graphic.x + 1) % 300;
     graphic.rotation += 1;
+    img.rotation += 1;
     // console.log(graphic.x);
 });

@@ -8,8 +8,8 @@ export function DrawableGroup() {
     return Object.assign(duang(_drawable), _group, {
         /** @param {_drawable} child */
         add: function (child) {
-            if (typeof child['draw'] !== 'function') {
-                throw 'only drawable can be added';
+            if (child === void 0 || typeof child['draw'] !== 'function') {
+                throw 'error: only drawable can be added';
             } else {
                 child.parent = this;
                 _group.add.call(this, child);
