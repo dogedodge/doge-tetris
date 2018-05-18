@@ -76,9 +76,9 @@ export function Drawable(width, height) {
 
     Object.defineProperty(_this, 'width', {
         get: function () {
-            if(this._width === void 0){
+            if (this._width === void 0) {
                 return void 0;
-            }else{
+            } else {
                 return this._width * this.scaleX;
             }
         },
@@ -89,9 +89,9 @@ export function Drawable(width, height) {
 
     Object.defineProperty(_this, 'height', {
         get: function () {
-            if(this._height === void 0){
+            if (this._height === void 0) {
                 return void 0;
-            }else{
+            } else {
                 return this._height * this.scaleY;
             }
         },

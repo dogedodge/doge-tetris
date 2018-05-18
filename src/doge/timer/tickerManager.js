@@ -12,7 +12,7 @@ export var tickerManager = Object.assign(duang(_super), {
         }
     },
     run: function () {
-        if(!this.running){
+        if (!this.running) {
             window.requestAnimationFrame(tick);
         }
         this.running = true;

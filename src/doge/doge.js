@@ -4,9 +4,12 @@ import { stomach } from "./stomach";
 
 /**
  * doge run on a canvas
- * @param {HTMLCanvasElement} canvas 
+ * @param {HTMLCanvasElement|string} canvas canvas or canvas' id
  */
 export function run(canvas) {
+    if (typeof canvas === 'string') {
+        canvas = document.querySelector(canvas);
+    }
     var stage = Stage(canvas);
     if (!tickerManager.running) {
         carry(function () {
@@ -30,13 +33,13 @@ export function run(canvas) {
  * @param {tickFun|Ticker} ticker 
  */
 export function carry(ticker) {
-    if(typeof ticker === 'function'){
+    if (typeof ticker === 'function') {
         tickerManager.add({
             tick: ticker
         });
-    }else if(typeof ticker.tick === 'function'){
+    } else if (typeof ticker.tick === 'function') {
         tickerManager.add(ticker);
-    }else{
+    } else {
         throw 'Doge only carry tickers';
     }
 }
@@ -45,6 +48,6 @@ export function carry(ticker) {
  * feed the doge with images
  * @param {string} src 
  */
-export function feed(src){
+export function feed(src) {
     return stomach.feed(src);
 }

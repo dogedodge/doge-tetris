@@ -6,7 +6,11 @@ export function Group(children) {
         },
         remove: function (child) {
             var index = this.children.indexOf(child);
-            this.children.splice(0, 1);
+            if(index >= 0){
+                this.children.splice(index, 1);
+            }else{
+                console.warn('child not found', child);
+            }
         },
         /**
          * @returns {number}

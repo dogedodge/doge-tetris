@@ -1,2 +1,2 @@
-export * from './Ticker';
+export * from './TweenTicker';
 export * from './tickerManager';
