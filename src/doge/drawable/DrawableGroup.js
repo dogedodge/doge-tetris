@@ -17,7 +17,7 @@ export function DrawableGroup() {
         },
         draw: function (ctx) {
             _drawable.draw.call(this, ctx);
-            _group.forEach(function (child) {
+            this.forEach(function (child) {
                 child.draw(ctx);
             });
         }

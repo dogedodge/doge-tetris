@@ -1,16 +1,19 @@
 export function Group(children) {
-    return {
+    var self = {
         children: Array.isArray(children) ? children : [],
         add: function (child) {
             this.children.push(child);
         },
         remove: function (child) {
             var index = this.children.indexOf(child);
-            if(index >= 0){
+            if (index >= 0) {
                 this.children.splice(index, 1);
-            }else{
+            } else {
                 console.warn('child not found', child);
             }
+        },
+        removeAll: function () {
+            this.children = [];
         },
         /**
          * @returns {number}
@@ -26,5 +29,6 @@ export function Group(children) {
             this.children.slice().forEach(callbackfn, thisArg);
         }
     }
-}
 
+    return self;
+}

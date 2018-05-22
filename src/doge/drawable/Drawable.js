@@ -7,7 +7,7 @@ export function Drawable(width, height) {
     // var _width = width;
     // var _height = height;
 
-    var _this = {
+    var self = {
         /** @type {{stageX:number, stageY:}} */
         parent: null,
         x: 0,
@@ -74,7 +74,7 @@ export function Drawable(width, height) {
         }
     }
 
-    Object.defineProperty(_this, 'width', {
+    Object.defineProperty(self, 'width', {
         get: function () {
             if (this._width === void 0) {
                 return void 0;
@@ -87,7 +87,7 @@ export function Drawable(width, height) {
         }
     });
 
-    Object.defineProperty(_this, 'height', {
+    Object.defineProperty(self, 'height', {
         get: function () {
             if (this._height === void 0) {
                 return void 0;
@@ -100,5 +100,5 @@ export function Drawable(width, height) {
         }
     });
 
-    return _this;
+    return self;
 }
