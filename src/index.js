@@ -56,13 +56,29 @@ function demoAllBlocks() {
 }
 // demoAllBlocks();
 
+var board = TetrisBoard(10, 20, 38);
 
-stage.add(TetrisBoard(10, 20, 38));
-// console.log();
+board.bornBlock(TetrisBlock(1, 1, 38));
+
+console.log(board);
+
+stage.add(board);
+
+stage.add(doge.Graphic(function (ctx) {
+    ctx.beginPath();
+    ctx.rect(0, 0, board.width, board.height);
+    ctx.stroke();
+}));
 
 document.addEventListener('keydown', function (event) {
     var charCode = event.which || event.keyCode;
     console.log(charCode);
+    switch (charCode) {
+        case 37:
+            board.moveLeft();
+            break;
+        case 39:
+            board.moveRight();
+            break;
+    }
 }, false);
-
-console.log(stage.size());

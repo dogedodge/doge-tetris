@@ -37,5 +37,8 @@ export function BlockGroup(xUnitNum, yUnitNum, uSize) {
         }
     });
 
+    self.width = xUnitNum * uSize;
+    self.height = yUnitNum * uSize
+
     return self;
 }
