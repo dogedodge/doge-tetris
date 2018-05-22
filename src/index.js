@@ -1,4 +1,4 @@
-import doge_png from '../assets/doge.png';
+// import doge_png from '../assets/doge.png';
 import * as doge from './doge';
 import { DrawableImage, tween } from './doge';
 import { TetrisBlock } from './blocks/TetrisBlock';
@@ -56,9 +56,9 @@ function demoAllBlocks() {
 }
 // demoAllBlocks();
 
-var board = TetrisBoard(10, 20, 38);
+var board = TetrisBoard(10, 20, 48);
 
-board.bornBlock(TetrisBlock(1, 1, 38));
+board.bornBlock(TetrisBlock(1, 1, 48));
 
 console.log(board);
 
