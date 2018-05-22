@@ -1,6 +1,7 @@
 import doge_png from '../assets/doge.png';
 import * as doge from './doge';
 import { DrawableImage, tween } from './doge';
+import { TetrisBlock } from './blocks/TetrisBlock';
 
 var stage = doge.run('#stage');
 var graphic = doge.Graphic(function (ctx) {
@@ -38,3 +39,21 @@ doge.carry(function () {
 });
 
 tween(img).to({ x: 400, y: 600, rotation: 90, scaleX: 2 }, 3000).then(drawable => { stage.remove(drawable) });
+
+function demoAllTetris(){
+    for (var i = 0; i < 7; i++) {
+        for (var j = 0; j < 4; j++) {
+            var block = TetrisBlock(i, j, 20);
+            block.x = j * 100;
+            block.y = i * 100;
+            stage.add(block);
+        }
+    }
+}
+demoAllTetris();
+
+
+document.addEventListener('keydown', function (event) {
+    var charCode = event.which || event.keyCode;
+    console.log(charCode);
+}, false);
