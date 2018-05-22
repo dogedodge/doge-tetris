@@ -77,8 +77,12 @@ document.addEventListener('keydown', function (event) {
         case 37:
             board.moveLeft();
             break;
+        case 38:
+            board.rotateBlock();
+            break;
         case 39:
             board.moveRight();
             break;
+        
     }
 }, false);

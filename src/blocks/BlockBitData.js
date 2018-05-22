@@ -79,7 +79,7 @@ setupOrientForType(6, 4);
 function setupOrientForType(type, orientNum) {
     allData[type] = [protoBitData[type]];
     for (var i = 0; i < orientNum - 1; i++) {
-        allData[type].push(rotate(allData[type][i]));
+        allData[type].push(rotateMatrix(allData[type][i]));
     }
 }
 
@@ -88,7 +88,7 @@ function setupOrientForType(type, orientNum) {
  * rotate a matrix
  * @param {number[][]} m 
  */
-function rotate(m) {
+export function rotateMatrix(m) {
     var n = [
         [0, 0, 0, 0, 1],
         [0, 0, 0, 1, 0],

@@ -1,6 +1,6 @@
 import { duang } from '../doge';
 import { DefaultUnit } from './DefaultUnit';
-import { BlockBitData } from './BlockBitData';
+import { BlockBitData, rotateMatrix } from './BlockBitData';
 import { BlockGroup } from './BlockGroup';
 
 /**
@@ -15,6 +15,10 @@ export function TetrisBlock(type, orientation, uSize) {
         type: type,
         orientation: orientation,
         bitData: BlockBitData(type, orientation),
+        rotate: function () {
+            this.bitData = rotateMatrix(this.bitData);
+            self.refreshBlocks.call(this);
+        }
     });
 
     self.refreshBlocks();

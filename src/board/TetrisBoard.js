@@ -1,7 +1,6 @@
 import { BlockGroup } from "../blocks/BlockGroup";
 import { tween } from "../doge";
 
-
 /**
  * @typedef {object} Block
  * @prop {number} unitX
@@ -9,6 +8,7 @@ import { tween } from "../doge";
  * @prop {number[][]} bitData
  * @prop {number} xUnitNum
  * @prop {number} yUnitNum
+ * @prop {()=>void} rotate
  */
 
 export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
@@ -31,25 +31,47 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
             this.targetBlock = block;
             block = Object.assign(block, this.tagetCoordinate());
             self.add.call(this, block);
-            this.updateBitData();
+            // this.updateBitData();
         },
 
         moveLeft: function () {
-            var block = this.targetBlock;
-            block.unitX--;
-            var that = this;
-            tween(block).to(this.tagetCoordinate(), 1000).then(function(){
-                that.updateBitData();
-            });
+            this.targetBlock.unitX--;
+            if (this.checkCollision() >=0) {
+                // undo
+                this.targetBlock.unitX++;
+            } else {
+                this.doAfterMove();
+            }
         },
 
         moveRight: function () {
-            var block = this.targetBlock;
-            block.unitX++;
-            var that = this;
-            tween(block).to(this.tagetCoordinate(), 1000).then(function(){
-                that.updateBitData();
-            });
+            this.targetBlock.unitX++;
+            if (this.checkCollision() >=0) {
+                // undo
+                this.targetBlock.unitX--;
+            } else {
+                this.doAfterMove();
+            }
+        },
+
+        fallDown: function () {
+
+        },
+
+        rotateBlock: function () {
+            this.targetBlock.rotate();
+
+            switch(this.checkCollision()){
+                case CollisionType.LEFT:
+                    this.targetBlock.unitX ++;
+                    break;
+            }
+            // this.updateBitData();
+        },
+
+        doAfterMove: function () {
+            // this.updateBitData();
+            tween(this.targetBlock).to(this.tagetCoordinate(), 200);
         },
 
         updateBitData: function () {
@@ -57,10 +79,44 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
             var block = this.targetBlock;
             for (var i = 0; i < block.yUnitNum; i++) {
                 for (var j = 0; j < block.xUnitNum; j++) {
-                    data[block.unitY + i][block.unitX + j] = block.bitData[i][j];
+                    var bit = block.bitData[i][j];
+                    if (bit > 0) {
+                        data[block.unitY + i][block.unitX + j] = bit;
+                    }
                 }
             }
             // self.refreshBlocks.call(this);
+        },
+
+
+        checkCollision: function () {
+            // var hasCollision = false;
+            var block = this.targetBlock;
+            var i, j, bit, unitX, unitY;
+            for (i = 0; i < block.yUnitNum; i++) {
+                for (j = 0; j < block.xUnitNum; j++) {
+                    bit = block.bitData[i][j];
+                    if (bit > 0) {
+                        unitX = block.unitX + j;
+                        unitY = block.unitY + i;
+                        if (unitX < 0) {
+                            return CollisionType.LEFT;
+                        } else if (unitX >= this.xUnitNum) {
+                            return CollisionType.RIGHT;
+                        }
+                        else if (unitY >= this.yUnitNum) {
+                            return CollisionType.BOTTOM;
+                        } else if (this.bitData[unitY] && this.bitData[unitY][unitX] > 0) {
+                            // fall down onto other block in bottom
+                            return CollisionType.BOTTOM;
+                        }
+                    }
+                }
+                // if(hasCollision){
+                //     break;
+                // }
+            }
+            return CollisionType.NONE;
         },
 
         absorbBlock: function () {
@@ -95,3 +151,9 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
     return self;
 }
 
+var CollisionType = {
+    NONE: -1,
+    BOTTOM: 0,
+    LEFT: 1,
+    RIGHT: 2
+}
