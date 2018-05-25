@@ -7,11 +7,11 @@ import { TetrisBoard } from './board/TetrisBoard';
 var stage = doge.run('#stage');
 console.log('stage', stage);
 
-stage.add(doge.Graphic(function (ctx) {
-    ctx.beginPath();
-    ctx.rect(0, 0, stage.width, stage.height);
-    ctx.stroke();
-}));
+// stage.add(doge.Graphic(function (ctx) {
+//     ctx.beginPath();
+//     ctx.rect(0, 0, stage.width, stage.height);
+//     ctx.stroke();
+// }));
 
 // var graphic = doge.Graphic(function (ctx) {
 //     ctx.beginPath();
@@ -56,11 +56,13 @@ function demoAllBlocks() {
 }
 // demoAllBlocks();
 
-var board = TetrisBoard(10, 20, 48);
+var board = TetrisBoard(10, 17, 48);
 
 board.bornBlock(TetrisBlock(3, 1, 48));
 
 console.log(board);
+
+setInterval(function(){board.fallDown()}, 1000);
 
 stage.add(board);
 

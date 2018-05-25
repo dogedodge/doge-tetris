@@ -1,5 +1,7 @@
 import { BlockGroup } from "../blocks/BlockGroup";
+import { TetrisBlock } from "../blocks/TetrisBlock";
 import { tween } from "../doge";
+import { randomInt } from "../math";
 
 /**
  * @typedef {object} Block
@@ -56,7 +58,14 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
         },
 
         fallDown: function () {
-
+            this.targetBlock.unitY++;
+            if (this.checkCollision() >= 0) {
+                this.targetBlock.unitY--;
+                this.absorbBlock();
+                this.bornBlock(TetrisBlock(randomInt(0, 7), randomInt(0, 3), 48));
+            } else {
+                this.doAfterMove();
+            }
         },
 
         rotateBlock: function () {
@@ -87,22 +96,13 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
         },
 
         updateBitData: function () {
-            var data = this.bitData;
-            var block = this.targetBlock;
-            for (var i = 0; i < block.yUnitNum; i++) {
-                for (var j = 0; j < block.xUnitNum; j++) {
-                    var bit = block.bitData[i][j];
-                    if (bit > 0) {
-                        data[block.unitY + i][block.unitX + j] = bit;
-                    }
-                }
-            }
+            
             // self.refreshBlocks.call(this);
         },
 
 
         checkCollision: function () {
-            // var hasCollision = false;
+            // todo return CollisionType.TOP
             var block = this.targetBlock;
             var i, j, bit, unitX, unitY;
             for (i = 0; i < block.yUnitNum; i++) {
@@ -124,15 +124,21 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
                         }
                     }
                 }
-                // if(hasCollision){
-                //     break;
-                // }
             }
             return CollisionType.NONE;
         },
 
         absorbBlock: function () {
-
+            var data = this.bitData;
+            var block = this.targetBlock;
+            for (var i = 0; i < block.yUnitNum; i++) {
+                for (var j = 0; j < block.xUnitNum; j++) {
+                    var bit = block.bitData[i][j];
+                    if (bit > 0) {
+                        data[block.unitY + i][block.unitX + j] = bit;
+                    }
+                }
+            }
         },
 
         tagetCoordinate: function () {
@@ -166,6 +172,7 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 var CollisionType = {
     NONE: -1,
     BOTTOM: 0,
-    LEFT: 1,
-    RIGHT: 2
+    TOP: 1,
+    LEFT: 2,
+    RIGHT: 3
 }
