@@ -9,6 +9,7 @@ import { tween } from "../doge";
  * @prop {number} xUnitNum
  * @prop {number} yUnitNum
  * @prop {()=>void} rotate
+ * @prop {()=>void} reverse
  */
 
 export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
@@ -36,7 +37,7 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         moveLeft: function () {
             this.targetBlock.unitX--;
-            if (this.checkCollision() >=0) {
+            if (this.checkCollision() >= 0) {
                 // undo
                 this.targetBlock.unitX++;
             } else {
@@ -46,7 +47,7 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         moveRight: function () {
             this.targetBlock.unitX++;
-            if (this.checkCollision() >=0) {
+            if (this.checkCollision() >= 0) {
                 // undo
                 this.targetBlock.unitX--;
             } else {
@@ -60,12 +61,23 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         rotateBlock: function () {
             this.targetBlock.rotate();
+            var collisionType = this.checkCollision();
+            do {
+                switch (collisionType) {
+                    case CollisionType.LEFT:
+                        this.targetBlock.unitX++;
+                        break;
+                    case CollisionType.RIGHT:
+                        this.targetBlock.unitX--;
+                        break;
+                    case CollisionType.BOTTOM:
+                        this.targetBlock.reverse();
+                        break;
+                }
+                collisionType = this.checkCollision();
+            } while (collisionType !== CollisionType.NONE)
 
-            switch(this.checkCollision()){
-                case CollisionType.LEFT:
-                    this.targetBlock.unitX ++;
-                    break;
-            }
+            this.doAfterMove();
             // this.updateBitData();
         },
 

@@ -88,7 +88,7 @@ function setupOrientForType(type, orientNum) {
  * rotate a matrix
  * @param {number[][]} m 
  */
-export function rotateMatrix(m) {
+function rotateMatrix(m) {
     var n = [
         [0, 0, 0, 0, 1],
         [0, 0, 0, 1, 0],

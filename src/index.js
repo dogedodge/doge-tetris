@@ -58,7 +58,7 @@ function demoAllBlocks() {
 
 var board = TetrisBoard(10, 20, 48);
 
-board.bornBlock(TetrisBlock(1, 1, 48));
+board.bornBlock(TetrisBlock(3, 1, 48));
 
 console.log(board);
 

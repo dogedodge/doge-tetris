@@ -16,7 +16,13 @@ export function TetrisBlock(type, orientation, uSize) {
         orientation: orientation,
         bitData: BlockBitData(type, orientation),
         rotate: function () {
-            this.bitData = rotateMatrix(this.bitData);
+            this.orientation++;
+            this.bitData = BlockBitData(this.type, this.orientation);
+            self.refreshBlocks.call(this);
+        },
+        reverse: function () {
+            this.orientation--;
+            this.bitData = BlockBitData(this.type, this.orientation);
             self.refreshBlocks.call(this);
         }
     });
