@@ -39,7 +39,7 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         moveLeft: function () {
             this.targetBlock.unitX--;
-            if (this.checkCollision() >= 0) {
+            if (this.checkCollision() > 0) {
                 // undo
                 this.targetBlock.unitX++;
             } else {
@@ -49,7 +49,7 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         moveRight: function () {
             this.targetBlock.unitX++;
-            if (this.checkCollision() >= 0) {
+            if (this.checkCollision() > 0) {
                 // undo
                 this.targetBlock.unitX--;
             } else {
@@ -59,7 +59,11 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
         fallDown: function () {
             this.targetBlock.unitY++;
-            if (this.checkCollision() >= 0) {
+            var cType = this.checkCollision();
+            if (cType === 0) {
+                this.targetBlock.unitY--;
+                console.log('Game End!');
+            } else if (cType > 0) {
                 this.targetBlock.unitY--;
                 this.absorbBlock();
                 this.bornBlock(TetrisBlock(randomInt(0, 7), randomInt(0, 3), 48));
@@ -96,13 +100,12 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
         },
 
         updateBitData: function () {
-            
+
             // self.refreshBlocks.call(this);
         },
 
 
         checkCollision: function () {
-            // todo return CollisionType.TOP
             var block = this.targetBlock;
             var i, j, bit, unitX, unitY;
             for (i = 0; i < block.yUnitNum; i++) {
@@ -115,8 +118,9 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
                             return CollisionType.LEFT;
                         } else if (unitX >= this.xUnitNum) {
                             return CollisionType.RIGHT;
-                        }
-                        else if (unitY >= this.yUnitNum) {
+                        } else if (unitY < 0) {
+                            return CollisionType.TOP;
+                        } else if (unitY >= this.yUnitNum) {
                             return CollisionType.BOTTOM;
                         } else if (this.bitData[unitY] && this.bitData[unitY][unitX] > 0) {
                             // fall down onto other block in bottom
@@ -171,8 +175,8 @@ export function TetrisBoard(xUnitNum, yUnitNum, uSize) {
 
 var CollisionType = {
     NONE: -1,
-    BOTTOM: 0,
-    TOP: 1,
+    TOP: 0,
+    BOTTOM: 1,
     LEFT: 2,
     RIGHT: 3
 }
