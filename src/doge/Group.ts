@@ -22,11 +22,11 @@ export function Group(children) {
             return this.children.length;
         },
         /**
-         * @param {(value:any, index:number, array:any[])=>void} callbackfn
+         * @param {(value:any, index:number, array:any[])=>void} callbackFn
          */
-        forEach: function (callbackfn, thisArg) {
+        forEach: function (callbackFn, thisArg) {
             // avoid splice while for loop
-            this.children.slice().forEach(callbackfn, thisArg);
+            this.children.slice().forEach(callbackFn, thisArg);
         }
     }
 

@@ -3,8 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  mode: "development",
+  devtool: "inline-source-map",
   entry: './src/index.js',
-  devtool: 'inline-source-map',
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -15,6 +16,10 @@ module.exports = {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: [".ts", ".tsx", ".js"]
+  },
   module: {
     rules: [
       {
@@ -22,7 +27,8 @@ module.exports = {
         use: [
           'file-loader'
         ]
-      }
+      },
+      { test: /\.tsx?$/, loader: "ts-loader" }
     ]
   }
 }
